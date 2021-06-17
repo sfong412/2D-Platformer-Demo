@@ -108,10 +108,10 @@ public class PlayerCollision : MonoBehaviour
             //add camera transition function here
         }
 
-        if (collision.gameObject.tag == "Enemy Hitbox" && currentEnemy.isAlive == true)
-        {
-        //    health.ChangeHealth(-1);
-        }
+       // if (collision.gameObject.tag == "Enemy Hitbox" && currentEnemy.isAlive == true)
+      //  {
+          //  health.ChangeHealth(-1);
+      //  }
         
         if (collision.gameObject.tag == "Enemy Hurtbox" && currentEnemy.isAlive == true)
         {

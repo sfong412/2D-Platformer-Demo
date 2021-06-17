@@ -42,7 +42,14 @@ public class CameraFollow : MonoBehaviour
 
         cameraSize = new Vector2((2f * camera.orthographicSize) * camera.aspect, 2f * camera.orthographicSize);
 
+       // cameraSize = new Vector2((2f * camera.orthographicSize) * pixelPerfectCamera.pixelRatio, 2f * camera.orthographicSize);
+
         windowResolution = new Vector2(Screen.width, Screen.height);
+    }
+
+    void Start()
+    {
+
     }
 
     void Update()
@@ -96,10 +103,17 @@ public class CameraFollow : MonoBehaviour
 
      void CalculateCameraPivot()
      {
+        
         botPivot = levelBox.bounds.min.y + cameraSize.y/2;
         topPivot = levelBox.bounds.max.y - cameraSize.y/2;
         leftPivot = levelBox.bounds.min.x + cameraSize.x/2;
         rightPivot = levelBox.bounds.max.x - cameraSize.x/2;
+        
+
+     //   botPivot = levelBox.bounds.min.y + pixelPerfectCamera.RoundToPixel(cameraSize).y/2;
+     //   topPivot = levelBox.bounds.max.y - pixelPerfectCamera.RoundToPixel(cameraSize).y/2;
+    //    leftPivot = levelBox.bounds.min.x + pixelPerfectCamera.RoundToPixel(cameraSize).x/2;
+    //    rightPivot = levelBox.bounds.max.x - pixelPerfectCamera.RoundToPixel(cameraSize).x/2;
     }
 
     public void RecalculateBounds(GameObject newBoxBounds)

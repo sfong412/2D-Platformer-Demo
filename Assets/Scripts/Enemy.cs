@@ -34,13 +34,15 @@ public class Enemy : MonoBehaviour
         rb.simulated = false;
         enemyCollider.enabled = false;
        // wallCollider.enabled = false;
-        StartCoroutine(WaitUntilSetInactive());
-        StopCoroutine(WaitUntilSetInactive());
+        StartCoroutine(WaitUntilSetInactive(1f));
+        StopCoroutine(WaitUntilSetInactive(1f));
     }
 
-    public IEnumerator WaitUntilSetInactive()
+    public IEnumerator WaitUntilSetInactive(float time)
     {
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(time);
         gameObject.SetActive(false);
     }
+
+    
 }
