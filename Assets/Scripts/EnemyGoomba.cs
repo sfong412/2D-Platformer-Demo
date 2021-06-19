@@ -14,6 +14,8 @@ public class EnemyGoomba : Enemy
         enemyCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         wallCollider = gameObject.transform.GetChild(0).GetComponent<BoxCollider2D>();
+
+        damageValue = -1;
     }
 
     void Update()

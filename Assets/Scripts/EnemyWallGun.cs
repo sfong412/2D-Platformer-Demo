@@ -5,27 +5,53 @@ using UnityEngine;
 public class EnemyWallGun : Enemy
 {
     public GameObject bullet;
+    private Vector3 bulletStartingPoint;
 
-    void Awake()
+    private float timer = 5f;
+
+    private PlayerMovement player;
+
+    private CameraFollow camera;
+
+    public GameObject enemyLocation;
+
+    void Start()
     {
+        transform = GetComponent<Transform>();
+
+        bulletStartingPoint = new Vector3(transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
+        damageValue = -1;
+
+        camera = GameObject.Find("Main Camera").GetComponent<CameraFollow>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        WaitUntilShoot(1f);
-      //  Shoot();
+        if (camera.currentLevelBounds == enemyLocation)
+        {
+            Shoot();
+        }
+       // Debug.Log(timer);
     }
 
     void Shoot()
     {
-        Instantiate(bullet, transform);
-        Debug.Log("shoot the gun");
+        timer -= Time.deltaTime;
+
+        if (timer <= 0)
+        {
+            Instantiate(bullet, bulletStartingPoint, Quaternion.identity, transform);
+            Debug.Log("shoot the gun");
+            timer = 5f;
+        }
     }
 
-    IEnumerator WaitUntilShoot(float time)
+    void CheckIfPlayerIsInBounds()
     {
-        yield return new WaitForSecondsRealtime(time);
-        Shoot();
+        if (camera.currentLevelBounds == enemyLocation)
+        {
+
+        }
     }
 }

@@ -108,6 +108,7 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log(lives.lives);
             lives.lives--;
             rb.simulated = false;
+            /*
             foreach (GameObject transitionMarker in transitionMarkers)
             {
                 if (cameraFollow.currentLevelBounds != transitionMarker.GetComponent<TransitionMarker>().boundsB)
@@ -115,6 +116,7 @@ public class PlayerHealth : MonoBehaviour
                     transitionMarker.GetComponent<TransitionMarker>().boxCollider.isTrigger = true;
                 }
             }
+            */
             respawnCoroutine = WaitUntilRespawn(0.8f);
             StartCoroutine(respawnCoroutine);
         }

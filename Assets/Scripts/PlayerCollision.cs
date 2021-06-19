@@ -48,14 +48,14 @@ public class PlayerCollision : MonoBehaviour
 
         if (collision.gameObject.tag == "Spikes")
         {
-            health.ChangeHealth(-1);
+            health.ChangeHealth(collision.gameObject.GetComponent<Spikes>().damageValue);
             standingOnSpikes = true;
         }
 
         if (collision.gameObject.tag == "Enemy Hitbox" && currentEnemy.isAlive == true)
         {
             Debug.Log("touched");
-            health.ChangeHealth(-1);
+            health.ChangeHealth(currentEnemy.damageValue);
         }
     }
 
@@ -75,7 +75,7 @@ public class PlayerCollision : MonoBehaviour
 
         if (collision.gameObject.tag == "Checkpoint" && currentItem.isUsed == false)
         {
-            movement.currentSpawnPoint = collision.gameObject.transform.localPosition;
+            movement.currentSpawnPoint = collision.gameObject.transform.position;
             currentItem.isUsed = true;
             health.currentCheckpointLocation = currentItem.levelBoundsLocation;
             Debug.Log(currentItem);

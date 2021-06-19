@@ -13,15 +13,21 @@ public class Bullet : Enemy
     {
         transform = GetComponent<Transform>();
         enemyCollider = GetComponent<BoxCollider2D>();
-        
-        speed = 0.0005f;
-        transform = GetComponent<Transform>();
+        Debug.Log(transform.position);
+        speed = 0.005f;
+
+        damageValue = -1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(transform.position.x + speed, transform.position.y, transform.position.z);
+        transform.localPosition = new Vector3(transform.localPosition.x + speed, transform.localPosition.y, transform.localPosition.z);
+    }
+
+    void OnBecameInvisible()
+    {
+        Destroy(gameObject);
     }
 
     void OnCollisionStay2D(Collision2D collision)

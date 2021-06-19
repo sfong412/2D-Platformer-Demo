@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
 
     public bool isAlive = true;
 
+    public int damageValue;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -24,6 +26,16 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void OnBecameVisible()
+    {
+      //  gameObject.SetActive(true);
+    }
+
+    void OnBecameInvisible()
+    {
+       // gameObject.SetActive(false);
     }
 
     public virtual void Die()
