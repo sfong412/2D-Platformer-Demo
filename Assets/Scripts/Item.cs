@@ -21,6 +21,7 @@ public class Item : MonoBehaviour
 
     void Update()
     {
+        //fix how transform.position spawn messed up by sine animation
         transform.position = startPosition + new Vector3(0.0f, Mathf.Sin(Time.time)/4, 0.0f);
     }
 }

@@ -13,6 +13,7 @@ TagManager:
   - Wall
   - Enemy Hurtbox
   - Enemy Hitbox
+  - Bounds
   layers:
   - Default
   - TransparentFX

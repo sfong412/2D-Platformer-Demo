@@ -22,12 +22,15 @@ public class PlayerHealth : MonoBehaviour
 
     public bool justGotDamaged = false;
     public bool isInvincible = false;
+    public bool isRespawning = false;
 
     public bool isDead = false;
 
     public GameObject currentCheckpointLocation;
 
     public GameObject startingCheckpointLocation;
+
+    GameObject[] enemies;
 
     void Awake()
     {
@@ -45,6 +48,10 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (enemies == null)
+        {
+            enemies = GameObject.FindGameObjectsWithTag("Enemy Hitbox");
+        }
     }
 
     // Update is called once per frame
@@ -108,15 +115,15 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log(lives.lives);
             lives.lives--;
             rb.simulated = false;
-            /*
+            
             foreach (GameObject transitionMarker in transitionMarkers)
             {
-                if (cameraFollow.currentLevelBounds != transitionMarker.GetComponent<TransitionMarker>().boundsB)
+                if (currentCheckpointLocation == transitionMarker.GetComponent<TransitionMarker>().boundsA)
                 {
                     transitionMarker.GetComponent<TransitionMarker>().boxCollider.isTrigger = true;
                 }
             }
-            */
+            
             respawnCoroutine = WaitUntilRespawn(0.8f);
             StartCoroutine(respawnCoroutine);
         }
@@ -124,12 +131,15 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator WaitUntilRespawn(float seconds)
     {
+        isRespawning = true;
         yield return new WaitForSecondsRealtime(seconds);
         Respawn();
+        isRespawning = false;
     }
 
     public void Respawn()
     {
+        SetEnemiesActiveAfterRespawn();
         if (currentCheckpointLocation != null)
         {
             cameraFollow.RecalculateBounds(currentCheckpointLocation);
@@ -142,12 +152,13 @@ public class PlayerHealth : MonoBehaviour
         animator.SetBool("is Hurt", false);
         rb.velocity = new Vector2(0f, 0f);
         transform.position = movement.currentSpawnPoint;
+        cameraFollow.Respawn(movement.currentSpawnPoint);
         isDead = false;
         rb.simulated = true;
         justGotDamaged = false;
         isInvincible = false;
         health = startingHealthAmount;
-        Debug.Log("respawned");
+        isRespawning = false;
     }
 
     void IgnoreCollision(bool playerIsDamaged)
@@ -157,6 +168,19 @@ public class PlayerHealth : MonoBehaviour
         foreach (BoxCollider2D enemyCollider in enemy)
         {
             Physics2D.IgnoreCollision(boxCollider, enemyCollider, playerIsDamaged);
+        }
+    }
+
+    void SetEnemiesActiveAfterRespawn()
+    {
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.SetActive(true);
+            
+            if (enemy.TryGetComponent(out EnemyGoomba goomba))
+            {
+                goomba.ResetPositionAfterPlayerDeath();
+            }
         }
     }
 }

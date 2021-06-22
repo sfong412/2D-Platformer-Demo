@@ -7,7 +7,7 @@ public class EnemyWallGun : Enemy
     public GameObject bullet;
     private Vector3 bulletStartingPoint;
 
-    private float timer = 5f;
+    private float timer = 3f;
 
     private PlayerMovement player;
 
@@ -43,7 +43,7 @@ public class EnemyWallGun : Enemy
         {
             Instantiate(bullet, bulletStartingPoint, Quaternion.identity, transform);
             Debug.Log("shoot the gun");
-            timer = 5f;
+            timer = 1.5f;
         }
     }
 
@@ -53,5 +53,10 @@ public class EnemyWallGun : Enemy
         {
 
         }
+    }
+
+    public void ResetPositionAfterPlayerDeath()
+    {
+        
     }
 }

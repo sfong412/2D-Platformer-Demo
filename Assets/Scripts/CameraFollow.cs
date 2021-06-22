@@ -42,8 +42,6 @@ public class CameraFollow : MonoBehaviour
 
         cameraSize = new Vector2((2f * camera.orthographicSize) * camera.aspect, 2f * camera.orthographicSize);
 
-       // cameraSize = new Vector2((2f * camera.orthographicSize) * pixelPerfectCamera.pixelRatio, 2f * camera.orthographicSize);
-
         windowResolution = new Vector2(Screen.width, Screen.height);
     }
 
@@ -99,6 +97,11 @@ public class CameraFollow : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetY, targetPosition.z), (smoothFactor * Time.fixedDeltaTime));
 
         transform.position = new Vector3(Mathf.Clamp(smoothedPosition.x, leftPivot, rightPivot), Mathf.Clamp(smoothedPosition.y, botPivot, topPivot), -0.3f);
+    }
+
+    public void Respawn(Vector3 destination)
+    {
+        transform.position = new Vector3(Mathf.Clamp(destination.x, leftPivot, rightPivot), Mathf.Clamp(destination.y, botPivot, topPivot), -0.3f);
     }
 
      void CalculateCameraPivot()

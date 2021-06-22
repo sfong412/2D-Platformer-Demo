@@ -5,11 +5,17 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public Transform transform;
+
+    public Vector3 initialSpawnPosition;
     public Rigidbody2D rb;
 
     public BoxCollider2D enemyCollider;
 
     public Animator animator;
+
+    public PlayerHealth player;
+
+    public GameObject enemy;
 
     public bool isAlive = true;
 
@@ -21,6 +27,9 @@ public class Enemy : MonoBehaviour
         transform = GetComponent<Transform>();
         enemyCollider = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
+        player = GameObject.Find("Player").GetComponent<PlayerHealth>();
+
+        initialSpawnPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
     }
 
     void Update()
@@ -54,6 +63,13 @@ public class Enemy : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(time);
         gameObject.SetActive(false);
+    }
+
+    public virtual void ResetPositionAfterPlayerDeath()
+    {
+        isAlive = true;
+        gameObject.SetActive(true);
+        transform.position = initialSpawnPosition;
     }
 
     
