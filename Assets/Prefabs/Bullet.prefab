@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4305633901516489258}
   - component: {fileID: 4305633901516489259}
   - component: {fileID: 4889697826184224132}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Bullet
   m_TagString: Enemy Hitbox
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -122,4 +122,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc12b63fed935e40b8d91c535da5a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transform: {fileID: 0}
+  initialSpawnPosition: {x: 0, y: 0, z: 0}
+  rb: {fileID: 0}
+  enemyCollider: {fileID: 0}
+  animator: {fileID: 0}
+  player: {fileID: 0}
+  enemy: {fileID: 0}
+  isAlive: 1
+  damageValue: 0
   speed: 5

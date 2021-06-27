@@ -104,15 +104,13 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0 || transform.position.y <= -75)
         {
-            Debug.Log("you died");
-
             if (damageCoroutine != null)
             {
                 StopCoroutine(damageCoroutine);
             }
 
             isDead = true;
-            Debug.Log(lives.lives);
+            //Debug.Log("Lives: " + lives.lives);
             lives.lives--;
             rb.simulated = false;
             
@@ -134,12 +132,12 @@ public class PlayerHealth : MonoBehaviour
         isRespawning = true;
         yield return new WaitForSecondsRealtime(seconds);
         Respawn();
+        SetEnemiesActiveAfterRespawn();
         isRespawning = false;
     }
 
     public void Respawn()
     {
-        SetEnemiesActiveAfterRespawn();
         if (currentCheckpointLocation != null)
         {
             cameraFollow.RecalculateBounds(currentCheckpointLocation);
@@ -159,6 +157,7 @@ public class PlayerHealth : MonoBehaviour
         isInvincible = false;
         health = startingHealthAmount;
         isRespawning = false;
+        sprite.color = new Color (sprite.color.r, sprite.color.g, sprite.color.b, 1);
     }
 
     void IgnoreCollision(bool playerIsDamaged)

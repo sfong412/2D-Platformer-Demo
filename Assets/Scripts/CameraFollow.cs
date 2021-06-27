@@ -40,14 +40,15 @@ public class CameraFollow : MonoBehaviour
         movement = GameObject.Find("Player").GetComponent<PlayerMovement>();
         levelBox = currentLevelBounds.GetComponent<SpriteRenderer>();
 
-        cameraSize = new Vector2((2f * camera.orthographicSize) * camera.aspect, 2f * camera.orthographicSize);
+        //ameraSize = new Vector2((2f * camera.orthographicSize) * camera.aspect, 2f * camera.orthographicSize);
+
+        cameraSize = new Vector2((2f * 3.75f) * 1, 2f * 3.75f);
 
         windowResolution = new Vector2(Screen.width, Screen.height);
     }
 
     void Start()
     {
-
     }
 
     void Update()
@@ -60,6 +61,8 @@ public class CameraFollow : MonoBehaviour
             windowResolution.y = Screen.height;
 
             cameraSize = new Vector2((2f * camera.orthographicSize) * camera.aspect, 2f * camera.orthographicSize);
+
+            //cameraSize = new Vector2((2f * 3.75f) * camera.aspect, 2f * 3.75f);
         }
     }
 
@@ -85,38 +88,33 @@ public class CameraFollow : MonoBehaviour
 
         targetPosition = target.position;
 
-        if (target.position.y < levelBox.bounds.min.y + cameraSize.y)
-        {
-            targetY = levelBox.bounds.min.y;
-        }
-        else
-        {
-            targetY = target.position.y;
-        }
+        targetY = levelBox.bounds.min.y;
 
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetY, targetPosition.z), (smoothFactor * Time.fixedDeltaTime));
 
-        transform.position = new Vector3(Mathf.Clamp(smoothedPosition.x, leftPivot, rightPivot), Mathf.Clamp(smoothedPosition.y, botPivot, topPivot), -0.3f);
+        transform.position = new Vector3(Mathf.Clamp(smoothedPosition.x, leftPivot, rightPivot), Mathf.Clamp(smoothedPosition.y, botPivot + .5f, topPivot), -0.3f);
+
+       // transform.position = new Vector3(smoothedPosition.x, Mathf.Clamp(smoothedPosition.y, botPivot, topPivot), -0.3f);
     }
 
     public void Respawn(Vector3 destination)
-    {
-        transform.position = new Vector3(Mathf.Clamp(destination.x, leftPivot, rightPivot), Mathf.Clamp(destination.y, botPivot, topPivot), -0.3f);
+    {       
+        transform.position = new Vector3(Mathf.Clamp(destination.x, leftPivot, rightPivot), Mathf.Clamp(levelBox.bounds.min.y, botPivot + .5f, topPivot), -0.3f);
     }
 
      void CalculateCameraPivot()
      {
-        
+        /*
         botPivot = levelBox.bounds.min.y + cameraSize.y/2;
         topPivot = levelBox.bounds.max.y - cameraSize.y/2;
         leftPivot = levelBox.bounds.min.x + cameraSize.x/2;
         rightPivot = levelBox.bounds.max.x - cameraSize.x/2;
-        
+        */
 
-     //   botPivot = levelBox.bounds.min.y + pixelPerfectCamera.RoundToPixel(cameraSize).y/2;
-     //   topPivot = levelBox.bounds.max.y - pixelPerfectCamera.RoundToPixel(cameraSize).y/2;
-    //    leftPivot = levelBox.bounds.min.x + pixelPerfectCamera.RoundToPixel(cameraSize).x/2;
-    //    rightPivot = levelBox.bounds.max.x - pixelPerfectCamera.RoundToPixel(cameraSize).x/2;
+        botPivot = levelBox.bounds.min.y + cameraSize.y/2;
+        topPivot = levelBox.bounds.max.y - cameraSize.y/2;
+        leftPivot = levelBox.bounds.min.x + cameraSize.x/2;
+        rightPivot = levelBox.bounds.max.x - cameraSize.x/2;
     }
 
     public void RecalculateBounds(GameObject newBoxBounds)

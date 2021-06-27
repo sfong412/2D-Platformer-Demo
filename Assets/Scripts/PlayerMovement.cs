@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D feet;
     PlayerHealth health;
     SpriteRenderer sprite;
+    AudioSource audio;
 
     Level level;
 
@@ -51,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         transform = GetComponent<Transform>();
         health = GetComponent<PlayerHealth>();
         sprite = GetComponent<SpriteRenderer>();
+        audio = GetComponent<AudioSource>();
         level = GameObject.Find("Gameplay Manager").GetComponent<Level>();
         playerFacingRight = true;
         rb.simulated = true;
@@ -127,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
 
             rb.velocity = movement;
         }
+        audio.Play(0);
     }
 
     void CheckIfGrounded()

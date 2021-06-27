@@ -14,7 +14,13 @@ public class PlayerCollision : MonoBehaviour
 
     public Collider2D testTransitionMarker;
     Level level;
+
+    UI ui;
     public bool standingOnSpikes;
+
+   // private float checkpointAlertTimer = 0f;
+
+   // GameObject checkpointText;
 
     bool transition = false;
 
@@ -26,20 +32,17 @@ public class PlayerCollision : MonoBehaviour
         playerAnimator = GameObject.Find("Player").GetComponent<Animator>();
         boxCollider2D = GetComponent<BoxCollider2D>();
         level = GameObject.Find("Gameplay Manager").GetComponent<Level>();
+        ui = GameObject.Find("UI").GetComponent<UI>();
     }
 
     void Start()
     {
-
+       // checkpointText = GameObject.Find("Checkpoint Text");
     }
 
     void Update()
     {
         SpikeCheck();
-       // BlockPreviousRoomFromEntry();
-
-        //Debug.Log(boxCollider2D.Distance(testTransitionMarker).distance);
-
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -54,7 +57,6 @@ public class PlayerCollision : MonoBehaviour
 
         if (collision.gameObject.tag == "Enemy Hitbox" && currentEnemy.isAlive == true)
         {
-            Debug.Log("touched");
             health.ChangeHealth(currentEnemy.damageValue);
         }
     }
@@ -78,21 +80,19 @@ public class PlayerCollision : MonoBehaviour
             movement.currentSpawnPoint = collision.gameObject.transform.position;
             currentItem.isUsed = true;
             health.currentCheckpointLocation = currentItem.levelBoundsLocation;
-            Debug.Log(currentItem);
+            ui.onCheckpointUsed();
         }
 
         if (collision.gameObject.tag == "Health Pickup" && currentItem.isUsed == false)
         {
             health.ChangeHealth(12);
             currentItem.isUsed = true;
-        //    Debug.Log("health pickup used");
         }
 
         if (collision.gameObject.tag == "End Flag" && currentItem.isUsed == false)
         {
             level.isCompleted = true;
             currentItem.isUsed = true;
-         //   Debug.Log("end flag used");
         }
 
         if (collision.gameObject.tag == "Bounds Transition Marker" && currentTransitionMarker.boundsA == camera.currentLevelBounds)
@@ -105,17 +105,15 @@ public class PlayerCollision : MonoBehaviour
             }
 
             previousTransitionMarker = collision;
-            //add camera transition function here
         }
 
-       // if (collision.gameObject.tag == "Enemy Hitbox" && currentEnemy.isAlive == true)
-      //  {
-          //  health.ChangeHealth(-1);
-      //  }
+        if (collision.gameObject.tag == "Enemy Hitbox" && collision.gameObject.layer == 2)
+        {
+            health.ChangeHealth(-1);
+        }
         
         if (collision.gameObject.tag == "Enemy Hurtbox" && currentEnemy.isAlive == true)
         {
-          // Debug.Log(currentEnemy);
             currentEnemy.Die();
             movement.rb.velocity = new Vector2 (movement.rb.velocity.x, 7f);
         }
@@ -132,27 +130,13 @@ public class PlayerCollision : MonoBehaviour
         {
             collision = previousTransitionMarker;
             collision.isTrigger = false;
-        //    Debug.Log("bounds Transition marker exited");
         }
     }
 
-    void BlockPreviousRoomFromEntry()
-    {
-        if (previousTransitionMarker == null)
-        {
-            return;
-        }
-
-       // if (previousTransitionMarker.Distance(boxCollider2D).distance >= 0.5f)
-      //  {
-            previousTransitionMarker.isTrigger = false;
-     //   }
-    }
     void SpikeCheck()
     {
         if (standingOnSpikes == true)
         {
-          //  playerAnimator.SetTrigger("Hurt");
             health.ChangeHealth(-1);
         }
     }

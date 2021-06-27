@@ -18,13 +18,13 @@ public class Bullet : Enemy
         enemyCollider = GetComponent<BoxCollider2D>();
         camera = GameObject.Find("Main Camera").GetComponent<CameraFollow>();
         levelBox = camera.currentLevelBounds.GetComponent<SpriteRenderer>();
-        speed = 0.005f;
+        speed = 0.125f;
 
         damageValue = -1;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.localPosition = new Vector3(transform.localPosition.x + speed, transform.localPosition.y, transform.localPosition.z);
 
@@ -35,8 +35,17 @@ public class Bullet : Enemy
     {
         Destroy(gameObject);
     }
-
+/*
     void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Wall")
+        {
+            Destroy(gameObject);
+            Debug.Log("bullet gone");
+        }
+    }
+*/
+    void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Wall")
         {

@@ -15,6 +15,8 @@ public class EnemyWallGun : Enemy
 
     public GameObject enemyLocation;
 
+    AudioSource audio;
+
     void Start()
     {
         transform = GetComponent<Transform>();
@@ -23,6 +25,7 @@ public class EnemyWallGun : Enemy
         damageValue = -1;
 
         camera = GameObject.Find("Main Camera").GetComponent<CameraFollow>();
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -32,7 +35,6 @@ public class EnemyWallGun : Enemy
         {
             Shoot();
         }
-       // Debug.Log(timer);
     }
 
     void Shoot()
@@ -42,7 +44,7 @@ public class EnemyWallGun : Enemy
         if (timer <= 0)
         {
             Instantiate(bullet, bulletStartingPoint, Quaternion.identity, transform);
-            Debug.Log("shoot the gun");
+            audio.Play();
             timer = 1.5f;
         }
     }
