@@ -29,7 +29,7 @@ public class CenterBoneCollision : MonoBehaviour
             }
             camera.RecalculateBounds(currentTransitionMarker.targetBounds);
 
-            Debug.Log("bounds Transition marker used");
+            //Debug.Log("bounds Transition marker used");
             //add camera transition function here
         }
     }

@@ -38,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     SpriteRenderer sprite;
     AudioSource audio;
 
+    public AudioClip jumpSFX;
+
     Level level;
 
     float timeFromZeroToMax = 2;
@@ -129,7 +131,7 @@ public class PlayerMovement : MonoBehaviour
 
             rb.velocity = movement;
         }
-        audio.Play(0);
+        audio.PlayOneShot(jumpSFX, 1f);
     }
 
     void CheckIfGrounded()

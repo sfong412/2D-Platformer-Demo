@@ -35,7 +35,7 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(health.health);
+        //Debug.Log(health.health);
         lifeUI.text = "Health: " + health.health.ToString();
 
         if (level.isCompleted == true)

@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
 
     SpriteRenderer sprite;
     Rigidbody2D rb;
-    BoxCollider2D boxCollider; 
+    BoxCollider2D boxCollider;
     Animator animator;
 
     CameraFollow cameraFollow;
@@ -32,6 +32,11 @@ public class PlayerHealth : MonoBehaviour
 
     GameObject[] enemies;
 
+    AudioSource audio;
+
+    public AudioClip hurtSFX;
+    public AudioClip fallSFX;
+
     void Awake()
     {
         health = 2;
@@ -43,6 +48,7 @@ public class PlayerHealth : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
+        audio = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -57,7 +63,6 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     public void ChangeHealth(int changeAmount)
@@ -68,6 +73,7 @@ public class PlayerHealth : MonoBehaviour
             {
                 health = health + changeAmount;
                 damageCoroutine = GetDamaged(0.5f, 1.5f);
+                audio.PlayOneShot(hurtSFX, 0.75f);
                 animator.Play("Hurt", 0, 0f);
                 animator.SetBool("is Hurt", true);
                 StartCoroutine(damageCoroutine);
@@ -90,12 +96,12 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSecondsRealtime(stun);
         justGotDamaged = false;
         animator.SetBool("is Hurt", false);
-        sprite.color = new Color (sprite.color.r, sprite.color.g, sprite.color.b, 0.8f);
+        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0.8f);
 
         //invulnerability ended
         yield return new WaitForSecondsRealtime(invicibility);
         isInvincible = false;
-        sprite.color = new Color (sprite.color.r, sprite.color.g, sprite.color.b, 1);
+        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
         IgnoreCollision(false);
     }
     public void Die()
@@ -109,11 +115,19 @@ public class PlayerHealth : MonoBehaviour
                 StopCoroutine(damageCoroutine);
             }
 
-            isDead = true;
+            if (transform.position.y <= -75 && isDead == false)
+            {
+                audio.PlayOneShot(fallSFX, 0.75f);
+                isDead = true;
+            }
+            else
+            {
+                isDead = true;
+            }
             //Debug.Log("Lives: " + lives.lives);
             lives.lives--;
             rb.simulated = false;
-            
+
             foreach (GameObject transitionMarker in transitionMarkers)
             {
                 if (currentCheckpointLocation == transitionMarker.GetComponent<TransitionMarker>().boundsA)
@@ -121,7 +135,7 @@ public class PlayerHealth : MonoBehaviour
                     transitionMarker.GetComponent<TransitionMarker>().boxCollider.isTrigger = true;
                 }
             }
-            
+
             respawnCoroutine = WaitUntilRespawn(0.8f);
             StartCoroutine(respawnCoroutine);
         }
@@ -144,7 +158,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            cameraFollow.RecalculateBounds(startingCheckpointLocation); 
+            cameraFollow.RecalculateBounds(startingCheckpointLocation);
         }
         IgnoreCollision(false);
         animator.SetBool("is Hurt", false);
@@ -157,7 +171,7 @@ public class PlayerHealth : MonoBehaviour
         isInvincible = false;
         health = startingHealthAmount;
         isRespawning = false;
-        sprite.color = new Color (sprite.color.r, sprite.color.g, sprite.color.b, 1);
+        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 1);
     }
 
     void IgnoreCollision(bool playerIsDamaged)
@@ -175,7 +189,7 @@ public class PlayerHealth : MonoBehaviour
         foreach (GameObject enemy in enemies)
         {
             enemy.SetActive(true);
-            
+
             if (enemy.TryGetComponent(out EnemyGoomba goomba))
             {
                 goomba.ResetPositionAfterPlayerDeath();

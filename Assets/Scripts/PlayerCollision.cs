@@ -18,6 +18,12 @@ public class PlayerCollision : MonoBehaviour
     UI ui;
     public bool standingOnSpikes;
 
+    AudioSource audio;
+
+    public AudioClip stompSFX;
+
+    public AudioClip checkpointSFX;
+
    // private float checkpointAlertTimer = 0f;
 
    // GameObject checkpointText;
@@ -33,6 +39,7 @@ public class PlayerCollision : MonoBehaviour
         boxCollider2D = GetComponent<BoxCollider2D>();
         level = GameObject.Find("Gameplay Manager").GetComponent<Level>();
         ui = GameObject.Find("UI").GetComponent<UI>();
+        audio = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -77,20 +84,25 @@ public class PlayerCollision : MonoBehaviour
 
         if (collision.gameObject.tag == "Checkpoint" && currentItem.isUsed == false)
         {
+            audio.PlayOneShot(checkpointSFX, 0.85f);
             movement.currentSpawnPoint = collision.gameObject.transform.position;
             currentItem.isUsed = true;
+            currentItem.changeSprite(collision.gameObject.tag);
             health.currentCheckpointLocation = currentItem.levelBoundsLocation;
             ui.onCheckpointUsed();
         }
 
         if (collision.gameObject.tag == "Health Pickup" && currentItem.isUsed == false)
         {
+            audio.PlayOneShot(checkpointSFX, 0.75f);
             health.ChangeHealth(12);
             currentItem.isUsed = true;
         }
 
         if (collision.gameObject.tag == "End Flag" && currentItem.isUsed == false)
         {
+            audio.PlayOneShot(checkpointSFX, 0.75f);
+            currentItem.changeSprite(collision.gameObject.tag);
             level.isCompleted = true;
             currentItem.isUsed = true;
         }
@@ -114,6 +126,7 @@ public class PlayerCollision : MonoBehaviour
         
         if (collision.gameObject.tag == "Enemy Hurtbox" && currentEnemy.isAlive == true)
         {
+            audio.PlayOneShot(stompSFX, 0.85f);
             currentEnemy.Die();
             movement.rb.velocity = new Vector2 (movement.rb.velocity.x, 7f);
         }

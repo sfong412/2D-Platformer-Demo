@@ -42,8 +42,6 @@ ScriptsOnlyBuild:
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshProUGUI
-    Unity.Timeline.Editor.dll:
-    - TimelineProjectSettings
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
@@ -96,53 +94,53 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1730}
+      Script: {instanceID: 1732}
     - Class: 114
-      Script: {instanceID: 1784}
+      Script: {instanceID: 1786}
     - Class: 114
-      Script: {instanceID: 1852}
+      Script: {instanceID: 1854}
     - Class: 114
-      Script: {instanceID: 2008}
+      Script: {instanceID: 2010}
     - Class: 114
-      Script: {instanceID: 2096}
+      Script: {instanceID: 2098}
     - Class: 114
-      Script: {instanceID: 2242}
+      Script: {instanceID: 2244}
     - Class: 114
-      Script: {instanceID: 2480}
+      Script: {instanceID: 2482}
     - Class: 114
-      Script: {instanceID: 2626}
+      Script: {instanceID: 2628}
     - Class: 114
-      Script: {instanceID: 2668}
+      Script: {instanceID: 2670}
     - Class: 114
-      Script: {instanceID: 2700}
+      Script: {instanceID: 2702}
     - Class: 114
-      Script: {instanceID: 2798}
+      Script: {instanceID: 2800}
     - Class: 114
-      Script: {instanceID: 2908}
+      Script: {instanceID: 2910}
     - Class: 114
-      Script: {instanceID: 3012}
+      Script: {instanceID: 3014}
     - Class: 114
-      Script: {instanceID: 3168}
+      Script: {instanceID: 3170}
     - Class: 114
-      Script: {instanceID: 3430}
+      Script: {instanceID: 3432}
     - Class: 114
-      Script: {instanceID: 3730}
+      Script: {instanceID: 3732}
     - Class: 114
-      Script: {instanceID: 3896}
+      Script: {instanceID: 3898}
     - Class: 114
-      Script: {instanceID: 3942}
+      Script: {instanceID: 3944}
     - Class: 114
-      Script: {instanceID: 4256}
+      Script: {instanceID: 4258}
     - Class: 114
-      Script: {instanceID: 4268}
+      Script: {instanceID: 4270}
     - Class: 114
-      Script: {instanceID: 4388}
+      Script: {instanceID: 4390}
     - Class: 114
-      Script: {instanceID: 4458}
+      Script: {instanceID: 4460}
     - Class: 114
-      Script: {instanceID: 4588}
+      Script: {instanceID: 4590}
     - Class: 114
-      Script: {instanceID: 4880}
+      Script: {instanceID: 4882}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -262,7 +260,7 @@ ScriptsOnlyBuild:
     className: TMP_FontAsset
   - hash:
       serializedVersion: 2
-      Hash: bf2bba314a4fb7f8d4d91c467b45659b
+      Hash: 952dd6842e724621328e60cdc952e929
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: EnemyGoomba
@@ -430,7 +428,7 @@ ScriptsOnlyBuild:
     className: TestResultRendererCallback
   - hash:
       serializedVersion: 2
-      Hash: ee94370156175e33f89d77fb8e75ffbe
+      Hash: c998cbfe977c8ca4697f53a145c23c72
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerCollision
@@ -490,7 +488,7 @@ ScriptsOnlyBuild:
     className: SpriteShapeController
   - hash:
       serializedVersion: 2
-      Hash: cffdba1091b5ffdd830061d045a32b34
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: UI
@@ -580,7 +578,7 @@ ScriptsOnlyBuild:
     className: AudioPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: 74bb800d5864942d4f4a4a392580e209
+      Hash: b4713351138f3d5d282ddcbe2ebbbd77
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerMovement
@@ -628,7 +626,7 @@ ScriptsOnlyBuild:
     className: SignalTrack
   - hash:
       serializedVersion: 2
-      Hash: 56432fb2e15543286fb59b62d273ef6e
+      Hash: dd460a347c5b905f4e2483448543806c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerHealth
